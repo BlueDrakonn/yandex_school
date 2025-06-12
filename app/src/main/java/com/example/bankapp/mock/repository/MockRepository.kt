@@ -2,75 +2,140 @@ package com.example.bankapp.mock.repository
 
 import com.example.bankapp.domain.model.Account
 import com.example.bankapp.domain.model.Category
-import com.example.bankapp.domain.model.Transaction
 import com.example.bankapp.domain.repository.Repository
-import java.time.LocalDate
-
+import com.example.bankapp.data.model.AccountBrief
+import com.example.bankapp.data.model.TransactionResponse
 import java.time.LocalDateTime
-import java.time.YearMonth
+
 
 class MockRepository : Repository {
 
-    private val mockTransactions = listOf(
-        Transaction(
+    val mockTransactions = listOf(
+        TransactionResponse(
             id = 1,
-            accountId = 1,
-            categoryId = 4,
-            amount = 5100.0,
-            transactionDate = LocalDateTime.now(),
-            comment = "Покупка еды",
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            account = AccountBrief(
+                id = 1,
+                name = "Основной счёт",
+                balance = 1000.00,
+                currency = "RUB"
+            ),
+            category = Category(
+                id = 1,
+                title = "Зарплата",
+                icon = "💰",
+                isIncome = true
+            ),
+            amount = 500.00,
+            transactionDate = LocalDateTime.parse("2025-06-12T09:00:00"),
+            comment = "Зарплата за июнь",
+            createdAt = LocalDateTime.parse("2025-06-12T09:01:00"),
+            updatedAt = LocalDateTime.parse("2025-06-12T09:01:00")
         ),
-        Transaction(
+        TransactionResponse(
             id = 2,
-            accountId = 1,
-            categoryId = 3,
-            amount = 1200.0,
-            transactionDate = LocalDateTime.now().minusDays(20),
-            comment = "Куртка",
-            createdAt = LocalDateTime.now().minusDays(20),
-            updatedAt = LocalDateTime.now().minusDays(19)
+            account = AccountBrief(
+                id = 1,
+                name = "Основной счёт",
+                balance = 950.00,
+                currency = "RUB"
+            ),
+            category = Category(
+                id = 2,
+                title = "Продукты",
+                icon = "🛒",
+                isIncome = false
+            ),
+            amount = 50.00,
+            transactionDate = LocalDateTime.parse("2025-06-12T12:30:00"),
+            comment = "Покупка в магазине",
+            createdAt = LocalDateTime.parse("2025-06-12T12:31:00"),
+            updatedAt = LocalDateTime.parse("2025-06-12T12:31:00")
         ),
-        Transaction(
+        TransactionResponse(
             id = 3,
-            accountId = 2,
-            categoryId = 1,
-            amount = 3000.0,
-            transactionDate = LocalDateTime.now(),
-            comment = "Зарплата",
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            account = AccountBrief(
+                id = 1,
+                name = "Основной счет",
+                balance = 5000.00,
+                currency = "RUB"
+            ),
+            category = Category(
+                id = 3,
+                title = "Развлечения",
+                icon = "🎮",
+                isIncome = false
+            ),
+            amount = 300.00,
+            transactionDate = LocalDateTime.parse("2025-06-11T20:15:00"),
+            comment = "Подписка на Netflix",
+            createdAt = LocalDateTime.parse("2025-06-11T20:16:00"),
+            updatedAt = LocalDateTime.parse("2025-06-11T20:16:00")
         ),
-        Transaction(
+        TransactionResponse(
             id = 4,
-            accountId = 1,
-            categoryId = 4,
-            amount = 750.0,
-            transactionDate = LocalDateTime.now(),
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            account = AccountBrief(
+                id = 1,
+                name = "Основной счет",
+                balance = 4800.00,
+                currency = "RUB"
+            ),
+            category = Category(
+                id = 4,
+                title = "Кафе",
+                icon = "☕",
+                isIncome = false
+            ),
+            amount = 200.00,
+            transactionDate = LocalDateTime.parse("2025-06-12T10:00:00"),
+            comment = "Завтрак в кафе",
+            createdAt = LocalDateTime.parse("2025-06-12T10:01:00"),
+            updatedAt = LocalDateTime.parse("2025-06-12T10:01:00")
         ),
-        Transaction(
+
+        TransactionResponse(
             id = 5,
-            accountId = 1,
-            categoryId = 5,
-            amount = 300.0,
-            transactionDate = LocalDateTime.now(),
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            account = AccountBrief(
+                id = 1,
+                name = "Основной счет",
+                balance = 4600.00,
+                currency = "RUB"
+            ),
+            category = Category(
+                id = 5,
+                title = "Фриланс",
+                icon = "🧑‍💻",
+                isIncome = true
+            ),
+            amount = 1000.00,
+            transactionDate = LocalDateTime.parse("2025-06-12T15:30:00"),
+            comment = "Оплата за проект",
+            createdAt = LocalDateTime.parse("2025-06-12T15:31:00"),
+            updatedAt = LocalDateTime.parse("2025-06-12T15:31:00")
         ),
-        Transaction(
+
+        TransactionResponse(
             id = 6,
-            accountId = 1,
-            categoryId = 1,
-            amount = 3050.0,
-            transactionDate = LocalDateTime.now(),
-            comment = "Ремонт крана",
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            account = AccountBrief(
+                id = 1,
+                name = "Основной счет",
+                balance = 4550.00,
+                currency = "RUB"
+            ),
+            category = Category(
+                id = 6,
+                title = "Транспорт",
+                icon = "🚗",
+                isIncome = false
+            ),
+            amount = 50.00,
+            transactionDate = LocalDateTime.parse("2025-06-12T18:00:00"),
+            comment = null,
+            createdAt = LocalDateTime.parse("2025-06-12T18:01:00"),
+            updatedAt = LocalDateTime.parse("2025-06-12T18:01:00")
         )
+
     )
+
 
 
     override suspend fun getAccounts(): List<Account> {
@@ -83,15 +148,6 @@ class MockRepository : Repository {
                 currency = "RUB",
                 createdAt = LocalDateTime.now().minusDays(10),
                 updatedAt = LocalDateTime.now()
-            ),
-            Account(
-                id = 2,
-                userId = 1,
-                name = "USD Счёт",
-                balance = 2500.0,
-                currency = "USD",
-                createdAt = LocalDateTime.now().minusDays(30),
-                updatedAt = LocalDateTime.now()
             )
         )
     }
@@ -99,33 +155,26 @@ class MockRepository : Repository {
     override suspend fun getCategories(): List<Category> {
         return listOf(
 
-            Category(id = 1, name = "Зарплата", emoji = "💰", isIncome = true),
-            Category(id = 2, name = "Фриланс", emoji = "🧑‍💻", isIncome = true),
-            Category(id = 3, name = "Подарок", emoji = "🎁", isIncome = true),
-
-
-            Category(id = 4, name = "Продукты", emoji = "🍎", isIncome = false),
-            Category(id = 5, name = "Кафе", emoji = "☕", isIncome = false),
-            Category(id = 6, name = "Транспорт", emoji = "🚗", isIncome = false),
-            Category(id = 7, name = "Одежда", emoji = "👕", isIncome = false),
-            Category(id = 8, name = "Развлечения", emoji = "🎮", isIncome = false),
-            Category(id = 9, name = "Медицина", emoji = "💊", isIncome = false),
-            Category(id = 10, name = "Аренда", emoji = "🏠", isIncome = false),
-            Category(id = 11, name = "Ремонт квартиры", emoji = "рк", isIncome = false)
+            Category(id = 1, title = "Зарплата", icon = "💰", isIncome = true),
+            Category(id = 2, title = "Фриланс", icon = "🧑‍💻", isIncome = true),
+            Category(id = 3, title = "Подарок", icon = "🎁", isIncome = true),
+            Category(id = 4, title = "Продукты", icon = "🍎", isIncome = false),
+            Category(id = 5, title = "Кафе", icon = "☕", isIncome = false),
+            Category(id = 6, title = "Транспорт", icon = "🚗", isIncome = false),
+            Category(id = 7, title = "Одежда", icon = "👕", isIncome = false),
+            Category(id = 8, title = "Развлечения", icon = "🎮", isIncome = false),
+            Category(id = 9, title = "Медицина", icon = "💊", isIncome = false),
+            Category(id = 10, title = "Аренда", icon = "🏠", isIncome = false),
+            Category(id = 11, title = "Ремонт квартиры", icon = "РК", isIncome = false)
         )
     }
 
-    override suspend fun getTransactionsByAccount(
+    override suspend fun getTodayTransactionsByAccount(
         accountId: Int,
-        startDate: LocalDate?,
-        endDate: LocalDate?
-    ): List<Transaction> {
-        val start = startDate ?: YearMonth.now().atDay(1)
-        val end = endDate ?: YearMonth.now().atEndOfMonth()
+    ): List<TransactionResponse> {
 
         return mockTransactions.filter {
-            it.accountId == accountId &&
-                    it.transactionDate.toLocalDate() in start..end
+            it.account.id == accountId
         }
     }
 }

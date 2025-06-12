@@ -2,32 +2,27 @@ package com.example.bankapp.ui.screen
 
 import ListItem
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.example.bankapp.R
+import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
 import com.example.bankapp.ui.common.PriceDisplay
 
-import com.example.bankapp.ui.model.AccountUi
 
 @Composable
-fun AccountsScreen() {
+fun AccountsScreen(viewModel: MainViewModel) {
 
-    val mock = listOf(
-        AccountUi(
-            id = 1,
-            amount = -601200.0,
-            currency = "₽",
-        )
-    )
+    val mock by viewModel.accounts.collectAsState()
 
 
     LazyList(
@@ -48,7 +43,7 @@ fun AccountsScreen() {
                 },
                 trailingContent = {
                     PriceDisplay(
-                        amount = item.amount,
+                        amount = item.balance,
                         currencySymbol = item.currency,
                     )
                 },

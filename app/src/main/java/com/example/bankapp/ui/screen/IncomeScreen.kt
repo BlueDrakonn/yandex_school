@@ -8,44 +8,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.bankapp.R
+import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.PriceDisplay
-import com.example.bankapp.ui.model.IncomeUi
 
 @Composable
-fun IncomeScreen() {
+fun IncomeScreen(viewModel: MainViewModel) {
 
-    val mock = listOf(
-        IncomeUi(
-            id = 1,
-            title = "зарплата",
-            amount = 420000.0,
-            currency = "₽"
-        ),
-        IncomeUi(
-            id = 2,
-            title = "подработка",
-            amount = 10000.0,
-            currency = "₽"
-        ),
-        IncomeUi(
-            id = 3,
-            title = "подарок",
-            amount = 777.0,
-            currency = "₽"
-        )
+    val mock by viewModel.incomeTransactions.collectAsState()
 
-
-    )
-
-    val totalAmount = remember { mock.sumOf { it.amount } }
+    val totalAmount by viewModel.totalIncome.collectAsState()
 
     LazyList(
         topItem = {
@@ -61,7 +41,7 @@ fun IncomeScreen() {
                 trailingContent = {
                     PriceDisplay(
                         amount = totalAmount,
-                        currencySymbol = mock[0].currency //пока мок версия
+                        currencySymbol = "₽" //пока мок версия
                     )
                 },
             )

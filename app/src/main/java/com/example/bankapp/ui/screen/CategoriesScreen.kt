@@ -14,6 +14,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,37 +23,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
+import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
-import com.example.bankapp.ui.model.CategoryUi
 
 
 @Composable
-fun CategoriesScreen() {
-    val mock = listOf(
-        CategoryUi(
-            id = 1,
-            title = "путешествие",
-            icon = "☎",
-        ),
-        CategoryUi(
-            id = 2,
-            title = "Одежда",
-            icon = "☕",
-        ),
-        CategoryUi(
-            id = 3,
-            title = "аренда квартиры",
-            icon = "АК",
-        ),
-        CategoryUi(
-            id = 4,
-            title = "Кофе",
-            icon = "КФ",
-        ),
+fun CategoriesScreen(viewModel: MainViewModel) {
 
-
-    )
+    val mock by viewModel.categories.collectAsState()
 
     var searchQuery by remember { mutableStateOf("") }
 

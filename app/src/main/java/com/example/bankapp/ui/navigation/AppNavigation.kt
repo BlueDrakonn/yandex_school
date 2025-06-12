@@ -1,39 +1,27 @@
 package com.example.bankapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,20 +30,16 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.bankapp.R
+import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.screen.AccountsScreen
 import com.example.bankapp.ui.screen.CategoriesScreen
 import com.example.bankapp.ui.screen.ExpensesScreen
@@ -98,7 +82,7 @@ enum class Screen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppNavigation() {
+fun AppNavigation(viewModel: MainViewModel) {
 
     val navController = rememberNavController()
 
@@ -158,10 +142,10 @@ fun AppNavigation() {
             startDestination = Screen.EXPENSES.route,
             modifier = Modifier.padding(padding)
         ) {
-            composable(Screen.EXPENSES.route) { ExpensesScreen() }
-            composable(Screen.INCOME.route) { IncomeScreen() }
-            composable(Screen.ACCOUNTS.route) { AccountsScreen() }
-            composable(Screen.ARTICLES.route) { CategoriesScreen() }
+            composable(Screen.EXPENSES.route) { ExpensesScreen(viewModel=viewModel) }
+            composable(Screen.INCOME.route) { IncomeScreen(viewModel=viewModel) }
+            composable(Screen.ACCOUNTS.route) { AccountsScreen(viewModel=viewModel) }
+            composable(Screen.ARTICLES.route) { CategoriesScreen(viewModel=viewModel) }
             composable(Screen.SETTINGS.route) { SettingsScreen() }
         }
     }

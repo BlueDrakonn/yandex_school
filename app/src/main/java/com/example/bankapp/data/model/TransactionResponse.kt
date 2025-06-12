@@ -1,4 +1,4 @@
-package com.example.bankapp.domain.viewmodel
+package com.example.bankapp.data.model
 
 import com.example.bankapp.domain.model.Category
 import java.time.LocalDateTime
