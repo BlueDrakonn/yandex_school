@@ -3,7 +3,9 @@ package com.example.bankapp.ui.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,11 +24,10 @@ fun TrailingContent(
 
 
         }
-
+        Spacer(Modifier.width(16.dp))
         icon?.let {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(start = 8.dp)
             ) {
                 it()
             }
