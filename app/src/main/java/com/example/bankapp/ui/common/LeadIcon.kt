@@ -28,7 +28,7 @@ fun LeadIcon(
         1 -> 18.sp
         else -> 10.sp
     }
-    Log.d("EMOJI","$fontSize")
+
     Box(
         modifier = modifier
             .size(24.dp)
@@ -42,7 +42,7 @@ fun LeadIcon(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
-            //style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onPrimary
         )
     }

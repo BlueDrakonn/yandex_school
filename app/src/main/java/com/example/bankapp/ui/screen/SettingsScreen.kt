@@ -31,39 +31,43 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.bankapp.R
+import com.example.bankapp.ui.common.LazyList
 
 
 @Composable
 fun SettingsScreen() {
     val settingsItems = listOf(
-        "Светлая темная авто",
-        "Основной цвет",
-        "Звуки",
-        "Хаптики",
-        "Код пароль",
-        "Синхронизация",
-        "Язык",
-        "О программе"
+        R.string.settings_dark_theme,
+        R.string.settings_main_color,
+        R.string.settings_sound,
+        R.string.settings_haptics,
+        R.string.settings_password,
+        R.string.settings_synchronization,
+        R.string.settings_language,
+        R.string.settings_about_program,
     )
 
     var isDarkTheme by remember { mutableStateOf(false) }
 
-    Column {
 
-        settingsItems.forEach{item ->
+    LazyList(
+        itemsList = settingsItems,
+        itemTemplate = { item ->
+
             ListItem(
                 modifier = Modifier.height(55.dp),
                 content = {Text(
-                    text = item,
+                    text = stringResource(item),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )},
                 trailIcon = {
 
-                    if (item == "Светлая темная авто") {
-                        Box() {
+                    if (item == R.string.settings_dark_theme) {
+                        Box {
                             Switch(
                                 checked = isDarkTheme,
                                 onCheckedChange = { isDarkTheme = it },
@@ -88,8 +92,50 @@ fun SettingsScreen() {
 
                 }
             )
-
         }
-    }
+    )
+
+
+//    Column {
+//
+//        settingsItems.forEach{item ->
+//            ListItem(
+//                modifier = Modifier.height(55.dp),
+//                content = {Text(
+//                    text = item,
+//                    style = MaterialTheme.typography.bodyLarge,
+//                    color = MaterialTheme.colorScheme.onPrimary
+//                )},
+//                trailIcon = {
+//
+//                    if (item == "Светлая темная авто") {
+//                        Box() {
+//                            Switch(
+//                                checked = isDarkTheme,
+//                                onCheckedChange = { isDarkTheme = it },
+//                                colors = SwitchDefaults.colors(
+//                                    checkedThumbColor = MaterialTheme.colorScheme.primary,
+//                                    checkedTrackColor = MaterialTheme.colorScheme.secondary,
+//                                    checkedBorderColor = MaterialTheme.colorScheme.primary
+//
+//                                )
+//                            )
+//                        }
+//                    } else {
+//                        Box(
+//                            modifier = Modifier.size(24.dp),
+//                            contentAlignment = Alignment.Center) {
+//                            Icon(
+//                                painter = painterResource(R.drawable.arrow_right),
+//                                contentDescription = null,
+//                            )
+//                        }
+//                    }
+//
+//                }
+//            )
+//
+//        }
+//    }
 }
 

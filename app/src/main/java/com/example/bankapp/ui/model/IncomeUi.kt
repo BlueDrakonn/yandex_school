@@ -1,6 +1,6 @@
 package com.example.bankapp.ui.model
 
-data class Income(
+data class IncomeUi(
     val id: Int,
     val title: String,
     val amount: Double,

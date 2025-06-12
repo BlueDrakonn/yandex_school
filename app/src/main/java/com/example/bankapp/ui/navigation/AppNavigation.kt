@@ -62,19 +62,38 @@ import com.example.bankapp.ui.screen.ExpensesScreen
 import com.example.bankapp.ui.screen.IncomeScreen
 import com.example.bankapp.ui.screen.SettingsScreen
 import com.example.bankapp.ui.theme.PrimaryGreen
-import com.example.bankapp.ui.theme.TextBlack
-
 
 enum class Screen(
     val route: String,
     val titleRes: Int,
+    val buttonTitleRes: Int,
     val iconId: Int,
 ) {
-    EXPENSES("EXPENSES", R.string.expenses_title, R.drawable.expenses),
-    INCOME("INCOME", R.string.income_title, R.drawable.income),
-    ACCOUNTS("ACCOUNTS", R.string.accounts_title, R.drawable.accounts),
-    ARTICLES("ARTICLES", R.string.articles_title, R.drawable.articles),
-    SETTINGS("SETTINGS", R.string.settings_title, R.drawable.settings);
+    EXPENSES(
+        "EXPENSES",
+        R.string.expenses_title,
+        R.string.expenses_button,
+        R.drawable.expenses),
+    INCOME(
+        "INCOME",
+        R.string.income_title,
+        R.string.income_button,
+        R.drawable.income),
+    ACCOUNTS(
+        "ACCOUNTS",
+        R.string.accounts_title,
+        R.string.accounts_button,
+        R.drawable.accounts),
+    ARTICLES(
+        "ARTICLES",
+        R.string.articles_title,
+        R.string.articles_button,
+        R.drawable.articles),
+    SETTINGS(
+        "SETTINGS",
+        R.string.settings_title,
+        R.string.settings_button,
+        R.drawable.settings);
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -206,10 +225,10 @@ fun BottomNavigationBar(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically)
         {
             items.forEach { screen ->
-                //Log.d("CURRENTSCREEN", "${currentRoute == screen.route}  $currentRoute")
+
                 BottomNavigationItem(
                     iconId = screen.iconId,
-                    titleRes = screen.titleRes,
+                    buttonTitleRes = screen.buttonTitleRes,
                     selected = currentRoute == screen.route,
                     onClick = { navController.navigate(screen.route) }
                 )
@@ -224,7 +243,7 @@ fun BottomNavigationBar(navController: NavController) {
 @Composable
 fun BottomNavigationItem(
     iconId: Int,
-    titleRes: Int ,
+    buttonTitleRes: Int ,
     selected: Boolean,
     onClick: () -> Unit,
 ) {
@@ -253,7 +272,7 @@ fun BottomNavigationItem(
                 ) {
                 Icon(
                     painter = painterResource(iconId),
-                    contentDescription = stringResource(titleRes),
+                    contentDescription = stringResource(buttonTitleRes),
                     modifier = Modifier
                         .size(width = 32.dp, height = 32.dp)
                         .clickable { onClick() },
@@ -264,7 +283,7 @@ fun BottomNavigationItem(
         } else {
             Icon(
                 painter = painterResource(iconId),
-                contentDescription = stringResource(titleRes),
+                contentDescription = stringResource(buttonTitleRes),
                 modifier = Modifier
                     .size(width = 32.dp, height = 32.dp)
                     .clickable { onClick() },
@@ -272,7 +291,7 @@ fun BottomNavigationItem(
         }
 
         Text(
-            text = stringResource(titleRes),
+            text = stringResource(buttonTitleRes),
             color = MaterialTheme.colorScheme.onSecondary,
             style = MaterialTheme.typography.labelMedium
             )

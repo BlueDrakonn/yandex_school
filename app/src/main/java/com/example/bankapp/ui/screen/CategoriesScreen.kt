@@ -3,14 +3,10 @@ package com.example.bankapp.ui.screen
 import ListItem
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,29 +22,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
+import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
-import com.example.bankapp.ui.model.Category
+import com.example.bankapp.ui.model.CategoryUi
 
 
 @Composable
 fun CategoriesScreen() {
     val mock = listOf(
-        Category(
+        CategoryUi(
             id = 1,
             title = "путешествие",
             icon = "☎",
         ),
-        Category(
+        CategoryUi(
             id = 2,
             title = "Одежда",
             icon = "☕",
         ),
-        Category(
+        CategoryUi(
             id = 3,
             title = "аренда квартиры",
             icon = "АК",
         ),
-        Category(
+        CategoryUi(
             id = 4,
             title = "Кофе",
             icon = "КФ",
@@ -59,41 +56,71 @@ fun CategoriesScreen() {
 
     var searchQuery by remember { mutableStateOf("") }
 
-    Column {
-        Row {
+    LazyList(
+        topItem = {
             SearchInput(
                 query = searchQuery,
                 onQueryChange = { searchQuery = it },
                 onSearchClick = {  }
             )
+        },
+        itemsList = mock,
+        itemTemplate = { item ->
+            ListItem(
+                modifier = Modifier.height(68.dp),
+                lead = { LeadIcon(label = item.icon) },
+                content = {
+                    Column(
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Text(
+                            text = item.title,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
 
-        }
-        HorizontalDivider()
-        LazyColumn {
-            items(
-                items = mock,
-                key = { it.id }
-            ) { item ->
-
-                ListItem(
-                    modifier = Modifier.height(68.dp),
-                    lead = { LeadIcon(label = item.icon) },
-                    content = {
-                        Column(
-                            horizontalAlignment = Alignment.Start
-                        ) {
-                            Text(
-                                text = item.title,
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onPrimary
-                            )
-
-                        }
                     }
-                )
-            }
+                }
+            )
         }
-    }
+    )
+
+
+//    Column {
+//        Row {
+//            SearchInput(
+//                query = searchQuery,
+//                onQueryChange = { searchQuery = it },
+//                onSearchClick = {  }
+//            )
+//
+//        }
+//        HorizontalDivider()
+//        LazyColumn {
+//            items(
+//                items = mock,
+//                key = { it.id }
+//            ) { item ->
+//
+//                ListItem(
+//                    modifier = Modifier.height(68.dp),
+//                    lead = { LeadIcon(label = item.icon) },
+//                    content = {
+//                        Column(
+//                            horizontalAlignment = Alignment.Start
+//                        ) {
+//                            Text(
+//                                text = item.title,
+//                                style = MaterialTheme.typography.bodyLarge,
+//                                color = MaterialTheme.colorScheme.onPrimary
+//                            )
+//
+//                        }
+//                    }
+//                )
+//            }
+//        }
+//    }
 }
 
 
