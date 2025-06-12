@@ -2,7 +2,7 @@ package com.example.bankapp.ui.screen
 
 import ListItem
 import androidx.compose.foundation.background
-
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Icon
@@ -22,10 +22,10 @@ import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
 import com.example.bankapp.ui.common.PriceDisplay
 import com.example.bankapp.ui.common.ResultStateHandler
+import com.example.bankapp.ui.common.TrailingContent
 
 @Composable
 fun ExpensesScreen(viewModel: MainViewModel) {
-
 
     val mock by viewModel.expenseTransactions.collectAsState()
 
@@ -58,7 +58,7 @@ fun ExpensesScreen(viewModel: MainViewModel) {
                 itemTemplate = { item ->
 
                     ListItem(
-                        modifier = Modifier.height(68.dp),
+                        modifier = Modifier.height(68.dp).clickable {  },
                         lead = { item.icon?.let { LeadIcon(label = it) } },
                         content = {
                             Column(
@@ -79,17 +79,22 @@ fun ExpensesScreen(viewModel: MainViewModel) {
                             }
                         },
                         trailingContent = {
-                            PriceDisplay(
-                                amount = item.amount,
-                                currencySymbol = item.currency
-                            )
-                        },
-                        trailIcon = {
-                            Icon(painter = painterResource(R.drawable.drillin),
-                                contentDescription = null,
+                            TrailingContent(
+                                content = {PriceDisplay(
+                                    amount = item.amount,
+                                    currencySymbol = item.currency
+                                                        )
+                                          },
+                                icon = {
+                                    Icon(painter = painterResource(R.drawable.drillin),
+                                        contentDescription = null,
 
-                                )
-                        }
+                                        )
+                                }
+                            )
+
+                        },
+
                     )
                 }
             )

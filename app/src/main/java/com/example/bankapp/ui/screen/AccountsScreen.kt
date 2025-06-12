@@ -2,6 +2,8 @@ package com.example.bankapp.ui.screen
 
 import ListItem
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,7 @@ import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
 import com.example.bankapp.ui.common.PriceDisplay
 import com.example.bankapp.ui.common.ResultStateHandler
+import com.example.bankapp.ui.common.TrailingContent
 
 
 @Composable
@@ -33,9 +36,10 @@ fun AccountsScreen(viewModel: MainViewModel) {
                 lastItemDivider = {},
                 itemTemplate = { item ->
                     ListItem(
-                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.secondary)
+                            .clickable {  },
                         lead = {
-
                             LeadIcon(
                                 backGroundColor = MaterialTheme.colorScheme.background,
                                 label = "💰"
@@ -45,38 +49,57 @@ fun AccountsScreen(viewModel: MainViewModel) {
                             Text(stringResource(R.string.balance))
                         },
                         trailingContent = {
-                            PriceDisplay(
-                                amount = item.balance,
-                                currencySymbol = item.currency,
+                            TrailingContent(
+                                content =  {
+                                    PriceDisplay(
+                                        amount = item.balance,
+                                        currencySymbol = item.currency,
+                                    )
+                                },
+                                icon = {
+                                    Icon(painter = painterResource(R.drawable.drillin),
+                                        contentDescription = null,
+                                    )
+                                }
                             )
-                        },
-                        trailIcon = {
-                            Icon(painter = painterResource(R.drawable.drillin),
-                                contentDescription = null,
-                            )
-                        },
-                        onTrailClick = { }
+
+                        }
+
                     )
                     HorizontalDivider( color = MaterialTheme.colorScheme.outlineVariant)
 
                     ListItem(
-                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        modifier = Modifier
+                            .background(MaterialTheme.colorScheme.secondary)
+                            .clickable {  },
                         content = {
                             Text(
                                 text = stringResource(R.string.currency),
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                style = MaterialTheme.typography.bodyLarge
                             )
                         },
                         trailingContent = {
-                            Text(
-                                text = item.currency,
+
+                            TrailingContent(
+                                content = {
+                                    Text(
+                                        text = item.currency,
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        style = MaterialTheme.typography.bodyLarge
+                                    )
+                                },
+                                icon = {
+                                    Icon(
+                                        painter = painterResource(R.drawable.drillin),
+                                        contentDescription = null,
+                                        )
+                                       },
                             )
-                        },
-                        trailIcon = {
-                            Icon(painter = painterResource(R.drawable.drillin),
-                                contentDescription = null,
-                            )
-                        },
-                        onTrailClick = {  }
+
+
+                        }
+
                     )
 
                 }

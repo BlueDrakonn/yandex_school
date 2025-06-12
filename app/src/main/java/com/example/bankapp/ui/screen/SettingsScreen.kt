@@ -1,23 +1,10 @@
 package com.example.bankapp.ui.screen
 
 import ListItem
-import android.app.LauncherActivity
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-
-import androidx.compose.material3.Divider
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -57,14 +44,20 @@ fun SettingsScreen() {
         itemsList = settingsItems,
         itemTemplate = { item ->
 
+            val clickableModifier  = when(item) {
+                R.string.settings_dark_theme -> Modifier
+                else -> Modifier.clickable {  }
+            }
+
             ListItem(
-                modifier = Modifier.height(55.dp),
+                modifier = clickableModifier
+                    .height(55.dp),
                 content = {Text(
                     text = stringResource(item),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary
                 )},
-                trailIcon = {
+                trailingContent = {
 
                     if (item == R.string.settings_dark_theme) {
                         Box {
@@ -95,47 +88,5 @@ fun SettingsScreen() {
         }
     )
 
-
-//    Column {
-//
-//        settingsItems.forEach{item ->
-//            ListItem(
-//                modifier = Modifier.height(55.dp),
-//                content = {Text(
-//                    text = item,
-//                    style = MaterialTheme.typography.bodyLarge,
-//                    color = MaterialTheme.colorScheme.onPrimary
-//                )},
-//                trailIcon = {
-//
-//                    if (item == "Светлая темная авто") {
-//                        Box() {
-//                            Switch(
-//                                checked = isDarkTheme,
-//                                onCheckedChange = { isDarkTheme = it },
-//                                colors = SwitchDefaults.colors(
-//                                    checkedThumbColor = MaterialTheme.colorScheme.primary,
-//                                    checkedTrackColor = MaterialTheme.colorScheme.secondary,
-//                                    checkedBorderColor = MaterialTheme.colorScheme.primary
-//
-//                                )
-//                            )
-//                        }
-//                    } else {
-//                        Box(
-//                            modifier = Modifier.size(24.dp),
-//                            contentAlignment = Alignment.Center) {
-//                            Icon(
-//                                painter = painterResource(R.drawable.arrow_right),
-//                                contentDescription = null,
-//                            )
-//                        }
-//                    }
-//
-//                }
-//            )
-//
-//        }
-//    }
 }
 

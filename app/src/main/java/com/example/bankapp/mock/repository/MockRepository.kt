@@ -18,7 +18,7 @@ class MockRepository : Repository {
                 id = 1,
                 name = "Основной счёт",
                 balance = 1000.00,
-                currency = "RUB"
+                currency = "₽"
             ),
             category = Category(
                 id = 1,
@@ -38,7 +38,7 @@ class MockRepository : Repository {
                 id = 1,
                 name = "Основной счёт",
                 balance = 950.00,
-                currency = "RUB"
+                currency = "₽"
             ),
             category = Category(
                 id = 2,
@@ -58,7 +58,7 @@ class MockRepository : Repository {
                 id = 1,
                 name = "Основной счет",
                 balance = 5000.00,
-                currency = "RUB"
+                currency = "₽"
             ),
             category = Category(
                 id = 3,
@@ -78,7 +78,7 @@ class MockRepository : Repository {
                 id = 1,
                 name = "Основной счет",
                 balance = 4800.00,
-                currency = "RUB"
+                currency = "₽"
             ),
             category = Category(
                 id = 4,
@@ -99,7 +99,7 @@ class MockRepository : Repository {
                 id = 1,
                 name = "Основной счет",
                 balance = 4600.00,
-                currency = "RUB"
+                currency = "₽"
             ),
             category = Category(
                 id = 5,
@@ -120,7 +120,7 @@ class MockRepository : Repository {
                 id = 1,
                 name = "Основной счет",
                 balance = 4550.00,
-                currency = "RUB"
+                currency = "₽"
             ),
             category = Category(
                 id = 6,
@@ -153,7 +153,7 @@ class MockRepository : Repository {
                     userId = 1,
                     name = "Основной счёт",
                     balance = 100000.0,
-                    currency = "RUB",
+                    currency = "₽",
                     createdAt = LocalDateTime.now().minusDays(10),
                     updatedAt = LocalDateTime.now()
                 )

@@ -1,5 +1,6 @@
 package com.example.bankapp.ui.common
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,8 +26,8 @@ fun PriceDisplay(
     val formattedAmount = formatter.format(amount)
 
     Text(
+        modifier = modifier,
         text = "$formattedAmount $currencySymbol",
-
         textAlign = TextAlign.Start,
         style = MaterialTheme.typography.bodyLarge,
         color = MaterialTheme.colorScheme.onPrimary

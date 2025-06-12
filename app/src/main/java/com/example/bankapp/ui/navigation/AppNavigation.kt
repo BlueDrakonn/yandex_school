@@ -3,6 +3,7 @@ package com.example.bankapp.ui.navigation
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -231,15 +233,27 @@ fun BottomNavigationItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val textColor = if (selected) {
+        MaterialTheme.colorScheme.onPrimary
+    } else {
+        MaterialTheme.colorScheme.onSecondary
+    }
 
     Column(
         modifier = Modifier
-            .size(width = 72.8.dp, height = 80.dp),
-        verticalArrangement = Arrangement.Center,
+            .size(width = 72.8.dp, height = 80.dp)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null) {onClick()},
+        verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+
+
         if (selected) {
+
             val secondaryColor = MaterialTheme.colorScheme.secondary
             Box(
                 modifier = Modifier
@@ -258,25 +272,24 @@ fun BottomNavigationItem(
                     painter = painterResource(iconId),
                     contentDescription = stringResource(buttonTitleRes),
                     modifier = Modifier
-                        .size(width = 32.dp, height = 32.dp)
-                        .clickable { onClick() },
+                        .size(width = 32.dp, height = 32.dp),
                     tint = MaterialTheme.colorScheme.primary
 
                 )
             }
+
         } else {
             Icon(
                 painter = painterResource(iconId),
                 contentDescription = stringResource(buttonTitleRes),
                 modifier = Modifier
-                    .size(width = 32.dp, height = 32.dp)
-                    .clickable { onClick() },
+                    .size(width = 32.dp, height = 32.dp),
             )
         }
 
         Text(
             text = stringResource(buttonTitleRes),
-            color = MaterialTheme.colorScheme.onSecondary,
+            color = textColor,
             style = MaterialTheme.typography.labelMedium
             )
     }

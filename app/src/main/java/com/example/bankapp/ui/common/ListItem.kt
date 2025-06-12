@@ -1,15 +1,11 @@
-import androidx.compose.foundation.clickable
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,8 +17,6 @@ fun ListItem(
     lead: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
     trailingContent: (@Composable () -> Unit)? = null,
-    trailIcon: (@Composable () -> Unit)? = null,
-    onTrailClick: (() -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
@@ -59,21 +53,6 @@ fun ListItem(
             }
         }
 
-
-        trailIcon?.let {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(start = 12.dp)
-                    //.size(24.dp)
-                    .clickable {
-                        onTrailClick?.invoke()
-
-                    }
-            ) {
-                it()
-            }
-        }
 
 
     }
