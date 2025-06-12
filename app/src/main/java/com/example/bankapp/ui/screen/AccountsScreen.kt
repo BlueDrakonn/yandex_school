@@ -17,6 +17,7 @@ import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
 import com.example.bankapp.ui.common.PriceDisplay
+import com.example.bankapp.ui.common.ResultStateHandler
 
 
 @Composable
@@ -24,59 +25,65 @@ fun AccountsScreen(viewModel: MainViewModel) {
 
     val mock by viewModel.accounts.collectAsState()
 
+    ResultStateHandler(
+        state = mock,
+        onSuccess = { data ->
+            LazyList(
+                itemsList = data,
+                lastItemDivider = {},
+                itemTemplate = { item ->
+                    ListItem(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        lead = {
 
-    LazyList(
-        itemsList = mock,
-        lastItemDivider = {},
-        itemTemplate = { item ->
-            ListItem(
-                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                lead = {
+                            LeadIcon(
+                                backGroundColor = MaterialTheme.colorScheme.background,
+                                label = "💰"
+                            )
+                        },
+                        content = {
+                            Text(stringResource(R.string.balance))
+                        },
+                        trailingContent = {
+                            PriceDisplay(
+                                amount = item.balance,
+                                currencySymbol = item.currency,
+                            )
+                        },
+                        trailIcon = {
+                            Icon(painter = painterResource(R.drawable.drillin),
+                                contentDescription = null,
+                            )
+                        },
+                        onTrailClick = { }
+                    )
+                    HorizontalDivider( color = MaterialTheme.colorScheme.outlineVariant)
 
-                    LeadIcon(
-                        backGroundColor = MaterialTheme.colorScheme.background,
-                        label = "💰"
+                    ListItem(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        content = {
+                            Text(
+                                text = stringResource(R.string.currency),
+                            )
+                        },
+                        trailingContent = {
+                            Text(
+                                text = item.currency,
+                            )
+                        },
+                        trailIcon = {
+                            Icon(painter = painterResource(R.drawable.drillin),
+                                contentDescription = null,
+                            )
+                        },
+                        onTrailClick = {  }
                     )
-                },
-                content = {
-                    Text(stringResource(R.string.balance))
-                },
-                trailingContent = {
-                    PriceDisplay(
-                        amount = item.balance,
-                        currencySymbol = item.currency,
-                    )
-                },
-                trailIcon = {
-                    Icon(painter = painterResource(R.drawable.drillin),
-                        contentDescription = null,
-                    )
-                },
-                onTrailClick = { }
+
+                }
             )
-            HorizontalDivider( color = MaterialTheme.colorScheme.outlineVariant)
-
-            ListItem(
-                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                content = {
-                    Text(
-                        text = stringResource(R.string.currency),
-                    )
-                },
-                trailingContent = {
-                    Text(
-                        text = item.currency,
-                    )
-                },
-                trailIcon = {
-                    Icon(painter = painterResource(R.drawable.drillin),
-                        contentDescription = null,
-                    )
-                },
-                onTrailClick = {  }
-            )
-
         }
+
     )
+
 
 }

@@ -19,6 +19,7 @@ import com.example.bankapp.R
 import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.PriceDisplay
+import com.example.bankapp.ui.common.ResultStateHandler
 
 @Composable
 fun IncomeScreen(viewModel: MainViewModel) {
@@ -27,53 +28,61 @@ fun IncomeScreen(viewModel: MainViewModel) {
 
     val totalAmount by viewModel.totalIncome.collectAsState()
 
-    LazyList(
-        topItem = {
-            ListItem(
-                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                content = {
-                    Text(
-                        text = stringResource(R.string.totalAmount_subtitle),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodyLarge
+    ResultStateHandler(
+        state = mock,
+        onSuccess = { data ->
+
+            LazyList(
+                topItem = {
+                    ListItem(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        content = {
+                            Text(
+                                text = stringResource(R.string.totalAmount_subtitle),
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        },
+                        trailingContent = {
+                            PriceDisplay(
+                                amount = totalAmount,
+                                currencySymbol = "₽" //пока мок версия
+                            )
+                        },
                     )
                 },
-                trailingContent = {
-                    PriceDisplay(
-                        amount = totalAmount,
-                        currencySymbol = "₽" //пока мок версия
-                    )
-                },
+                itemsList = data,
+                itemTemplate = { item ->
+                    ListItem(
+
+                        modifier = Modifier.height(68.dp),
+                        content = {
+                            Column(
+                                horizontalAlignment = Alignment.Start
+                            ) {
+                                Text(
+                                    text = item.title,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                            }
+                        },
+                        trailingContent = {
+                            PriceDisplay(
+                                amount = item.amount,
+                                currencySymbol = item.currency
+                            )
+                        },
+                        trailIcon = {
+                            Icon(painter = painterResource(R.drawable.drillin),
+                                contentDescription = null,
+
+                                )
+                        }
+                    ) }
             )
-        },
-        itemsList = mock,
-        itemTemplate = { item ->
-            ListItem(
-
-                modifier = Modifier.height(68.dp),
-                content = {
-                    Column(
-                        horizontalAlignment = Alignment.Start
-                    ) {
-                    Text(
-                        text = item.title,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
-            },
-            trailingContent = {
-                PriceDisplay(
-                    amount = item.amount,
-                    currencySymbol = item.currency
-                )
-            },
-            trailIcon = {
-                Icon(painter = painterResource(R.drawable.drillin),
-                    contentDescription = null,
-
-                    )
-            }
-        ) }
+        }
     )
+
+
 }

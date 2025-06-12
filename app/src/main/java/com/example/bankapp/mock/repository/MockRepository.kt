@@ -5,6 +5,7 @@ import com.example.bankapp.domain.model.Category
 import com.example.bankapp.domain.repository.Repository
 import com.example.bankapp.data.model.AccountBrief
 import com.example.bankapp.data.model.TransactionResponse
+import kotlinx.coroutines.delay
 import java.time.LocalDateTime
 
 
@@ -139,18 +140,27 @@ class MockRepository : Repository {
 
 
     override suspend fun getAccounts(): List<Account> {
-        return listOf(
-            Account(
-                id = 1,
-                userId = 1,
-                name = "Основной счёт",
-                balance = 100000.0,
-                currency = "RUB",
-                createdAt = LocalDateTime.now().minusDays(10),
-                updatedAt = LocalDateTime.now()
+        delay(5000)
+
+
+        val shouldThrowError = (0..3).random() == 0
+        if (shouldThrowError) {
+            throw RuntimeException("error for testing states")
+        } else {
+            return listOf(
+                Account(
+                    id = 1,
+                    userId = 1,
+                    name = "Основной счёт",
+                    balance = 100000.0,
+                    currency = "RUB",
+                    createdAt = LocalDateTime.now().minusDays(10),
+                    updatedAt = LocalDateTime.now()
+                )
             )
-        )
+        }
     }
+
 
     override suspend fun getCategories(): List<Category> {
         return listOf(

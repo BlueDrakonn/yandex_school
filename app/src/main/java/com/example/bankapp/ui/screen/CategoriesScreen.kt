@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
+import com.example.bankapp.ui.common.ResultStateHandler
 
 
 @Composable
@@ -35,71 +36,40 @@ fun CategoriesScreen(viewModel: MainViewModel) {
 
     var searchQuery by remember { mutableStateOf("") }
 
-    LazyList(
-        topItem = {
-            SearchInput(
-                query = searchQuery,
-                onQueryChange = { searchQuery = it },
-                onSearchClick = {  }
-            )
-        },
-        itemsList = mock,
-        itemTemplate = { item ->
-            ListItem(
-                modifier = Modifier.height(68.dp),
-                lead = { LeadIcon(label = item.icon) },
-                content = {
-                    Column(
-                        horizontalAlignment = Alignment.Start
-                    ) {
-                        Text(
-                            text = item.title,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
+    ResultStateHandler(
+        state = mock,
+        onSuccess = { data ->
+            LazyList(
+                topItem = {
+                    SearchInput(
+                        query = searchQuery,
+                        onQueryChange = { searchQuery = it },
+                        onSearchClick = {  }
+                    )
+                },
+                itemsList = data,
+                itemTemplate = { item ->
+                    ListItem(
+                        modifier = Modifier.height(68.dp),
+                        lead = { LeadIcon(label = item.icon) },
+                        content = {
+                            Column(
+                                horizontalAlignment = Alignment.Start
+                            ) {
+                                Text(
+                                    text = item.title,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
 
-                    }
+                            }
+                        }
+                    )
                 }
             )
         }
     )
 
-
-//    Column {
-//        Row {
-//            SearchInput(
-//                query = searchQuery,
-//                onQueryChange = { searchQuery = it },
-//                onSearchClick = {  }
-//            )
-//
-//        }
-//        HorizontalDivider()
-//        LazyColumn {
-//            items(
-//                items = mock,
-//                key = { it.id }
-//            ) { item ->
-//
-//                ListItem(
-//                    modifier = Modifier.height(68.dp),
-//                    lead = { LeadIcon(label = item.icon) },
-//                    content = {
-//                        Column(
-//                            horizontalAlignment = Alignment.Start
-//                        ) {
-//                            Text(
-//                                text = item.title,
-//                                style = MaterialTheme.typography.bodyLarge,
-//                                color = MaterialTheme.colorScheme.onPrimary
-//                            )
-//
-//                        }
-//                    }
-//                )
-//            }
-//        }
-//    }
 }
 
 

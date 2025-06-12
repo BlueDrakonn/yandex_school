@@ -21,6 +21,7 @@ import com.example.bankapp.domain.viewmodel.MainViewModel
 import com.example.bankapp.ui.common.LazyList
 import com.example.bankapp.ui.common.LeadIcon
 import com.example.bankapp.ui.common.PriceDisplay
+import com.example.bankapp.ui.common.ResultStateHandler
 
 @Composable
 fun ExpensesScreen(viewModel: MainViewModel) {
@@ -30,62 +31,68 @@ fun ExpensesScreen(viewModel: MainViewModel) {
 
     val totalAmount by viewModel.totalExpense.collectAsState()
 
-    LazyList(
-        topItem = {
-            ListItem(
-                modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
-                content = {
-                    Text(
-                        text = stringResource(R.string.totalAmount_subtitle),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                },
-                trailingContent = {
-                    PriceDisplay(
-                        amount = totalAmount,
-                        currencySymbol = "₽" //пока мок версия тк не очень понятно какой значок отображать ессли список пустой, если расходы привязаны к счету, то можно валюту ссчета, но пока ноль инфы про это
-                    )
-                },
-            )
-
-        },
-        itemsList = mock,
-        itemTemplate = { item ->
-
-            ListItem(
-                    modifier = Modifier.height(68.dp),
-                    lead = { item.icon?.let { LeadIcon(label = it) } },
-                    content = {
-                        Column(
-                            horizontalAlignment = Alignment.Start
-                        ) {
+    ResultStateHandler(
+        state = mock,
+        onSuccess = { data ->
+            LazyList(
+                topItem = {
+                    ListItem(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+                        content = {
                             Text(
-                                text = item.title,
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = MaterialTheme.colorScheme.onPrimary
+                                text = stringResource(R.string.totalAmount_subtitle),
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                style = MaterialTheme.typography.bodyLarge
                             )
-                            if (item.subtitle != null) {
-                                Text(
-                                    text = item.subtitle,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSecondary
-                                )
-                            }
-                        }
-                    },
-                    trailingContent = {
-                        PriceDisplay(
-                            amount = item.amount,
-                            currencySymbol = item.currency
-                        )
-                    },
-                    trailIcon = {
-                        Icon(painter = painterResource(R.drawable.drillin),
-                            contentDescription = null,
+                        },
+                        trailingContent = {
+                            PriceDisplay(
+                                amount = totalAmount,
+                                currencySymbol = "₽" //пока мок версия тк не очень понятно какой значок отображать ессли список пустой, если расходы привязаны к счету, то можно валюту ссчета, но пока ноль инфы про это
+                            )
+                        },
+                    )
 
-                            )}
-                )
+                },
+                itemsList = data,
+                itemTemplate = { item ->
+
+                    ListItem(
+                        modifier = Modifier.height(68.dp),
+                        lead = { item.icon?.let { LeadIcon(label = it) } },
+                        content = {
+                            Column(
+                                horizontalAlignment = Alignment.Start
+                            ) {
+                                Text(
+                                    text = item.title,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onPrimary
+                                )
+                                if (item.subtitle != null) {
+                                    Text(
+                                        text = item.subtitle,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSecondary
+                                    )
+                                }
+                            }
+                        },
+                        trailingContent = {
+                            PriceDisplay(
+                                amount = item.amount,
+                                currencySymbol = item.currency
+                            )
+                        },
+                        trailIcon = {
+                            Icon(painter = painterResource(R.drawable.drillin),
+                                contentDescription = null,
+
+                                )
+                        }
+                    )
+                }
+            )
         }
     )
 }
