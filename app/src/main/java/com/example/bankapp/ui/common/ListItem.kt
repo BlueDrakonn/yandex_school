@@ -21,12 +21,9 @@ fun ListItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
-
 
         lead?.let {
             Box(modifier = Modifier.padding(end = 16.dp)) {
@@ -34,16 +31,12 @@ fun ListItem(
             }
         }
 
-
         Column(
             modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center
         ) {
             content()
         }
-
-
-
 
         trailingContent?.let {
             Box(modifier = Modifier
