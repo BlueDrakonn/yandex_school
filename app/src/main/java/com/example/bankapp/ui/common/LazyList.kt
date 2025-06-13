@@ -28,7 +28,7 @@ fun <T> LazyList(
             itemsIndexed(itemsList) { index, item ->
                 itemTemplate(item)
 
-                // проверка ласт элема
+                // Проверяем: это последний элемент?
                 if (index < itemsList.lastIndex) {
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 } else {
